@@ -1,4 +1,4 @@
-name: ${{ github.event.inputs.name }}
+name: Builder
 on:   
     workflow_dispatch:
     # Inputs the workflow accepts.
@@ -72,13 +72,8 @@ jobs:
       run: |
            java -jar uber-apk-signer-1.1.0.jar -a unsigned.apk
            mv unsigned-aligned-debugSigned.apk signed.apk
-        
-    - uses: actions/upload-artifact@v2
-      with:
-        name: Android_unsigned.apk
-        path: unsigned.apk
     
     - uses: actions/upload-artifact@v2
       with:
-        name: Android_signed.apk
+        name: ${{ github.event.inputs.name }}_signed.apk
         path: signed.apk
