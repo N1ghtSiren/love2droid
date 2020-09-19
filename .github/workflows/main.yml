@@ -60,7 +60,9 @@ jobs:
     
     - name: Make And Insert game.love
       run: |
-        zip -r love_decoded/assets/game.love buildData/source
+        cd buildData
+        zip -r love_decoded/assets/game.love source/
+        cd ..
 
     - name: Replace app icons
       run: cp -rf buildData/res love_decoded
