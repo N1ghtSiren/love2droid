@@ -204,7 +204,7 @@ function defaultSettings()
     settings.cellsY = divisor(h,settings.cellsize)
     settings.cellsX = divisor(w,settings.cellsize)-1
 
-    settings.firstLaunch = settings.firstLaunch or 0
+    settings.firstLaunch = settings.firstLaunch or 1
     settings.language = settings.language or "_en"
     
 end
