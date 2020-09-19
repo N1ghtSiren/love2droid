@@ -1,4 +1,4 @@
-name: Builder
+name: ${{ github.event.inputs.name }}
 on:   
     workflow_dispatch:
     # Inputs the workflow accepts.
@@ -61,7 +61,6 @@ jobs:
     - name: Make And Insert game.love
       run: |
         zip -r love_decoded/assets/game.love buildData/source
-        mv buildData/game.love love_decoded/assets/game.love
 
     - name: Replace app icons
       run: cp -rf buildData/res love_decoded
