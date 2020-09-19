@@ -65,7 +65,7 @@ jobs:
         zip -r game.love *
         cd ..
         cd ..
-        mv buildData/game.love love_decoded/assets
+        mv buildData/source/game.love love_decoded/assets
 
     - name: Replace app icons
       run: cp -rf buildData/res love_decoded
