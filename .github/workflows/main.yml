@@ -13,7 +13,7 @@ on:
 
 jobs:
   
-  ${{ github.event.inputs.name }}:
+  Android:
     runs-on: ubuntu-latest
 
     steps:
