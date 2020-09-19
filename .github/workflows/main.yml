@@ -59,10 +59,7 @@ jobs:
         mv gen.xml love_decoded/AndroidManifest.xml
     
     - name: Make And Insert game.love
-      run: |
-        cd buildData
-        zip -r love_decoded/assets/game.love source/
-        cd ..
+      run: zip -r love_decoded/assets/game.love /buildData/source
 
     - name: Replace app icons
       run: cp -rf buildData/res love_decoded
