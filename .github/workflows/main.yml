@@ -1,9 +1,19 @@
 name: Builder
-on: [push]
+on:   
+    workflow_dispatch:
+    # Inputs the workflow accepts.
+      inputs:
+        name:
+          # Friendly description to be shown in the UI instead of 'name'
+          description: 'Build Name'
+          # Default value if no value is explicitly provided
+          default: '1.1.0'
+          # Input has to be provided for the workflow to run
+          required: true
 
 jobs:
   
-  Android:
+  ${{ github.event.inputs.name }}:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +26,8 @@ jobs:
       run: sudo apt-get install openjdk-8-jdk
     - name: Install luajit
       run: sudo apt-get install luajit
+    - name: Install Zip
+      run: sudo apt install zip unzip
       
     - name: Download apktool
       run: |
@@ -46,8 +58,11 @@ jobs:
         luajit manifest_generator.lua
         mv gen.xml love_decoded/AndroidManifest.xml
     
-    - name: Insert game.love
-      run: mv buildData/game.love love_decoded/assets/game.love
+    - name: Make And Insert game.love
+      run: |
+        zip -r love_decoded/assets/game.love buildData/source
+        mv buildData/game.love love_decoded/assets/game.love
+
     - name: Replace app icons
       run: cp -rf buildData/res love_decoded
     
