@@ -1,15 +1,12 @@
-name: Builder
-on:  [push] 
-    #workflow_dispatch:
-    ## Inputs the workflow accepts.
-    #  inputs:
-    #    name:
-    #      # Friendly description to be shown in the UI instead of 'name'
-    #      description: 'Build Name'
-    #      # Default value if no value is explicitly provided
-    #      default: '1.1.0'
-    #      # Input has to be provided for the workflow to run
-    #      required: true
+name: beta-builder
+on:  
+    push: 
+        branches:
+            - beta
+            - testing
+
+        branches-ignore:
+            - master
 
 jobs:
   
@@ -79,6 +76,5 @@ jobs:
     
     - uses: actions/upload-artifact@v2
       with:
-        #name: ${{ github.event.inputs.name }}_signed.apk
         name: signed.apk
         path: signed.apk
