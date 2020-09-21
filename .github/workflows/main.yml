@@ -5,9 +5,6 @@ on:
             - beta
             - testing
 
-        branches-ignore:
-            - master
-
 jobs:
   
   Android:
