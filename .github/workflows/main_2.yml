@@ -1,0 +1,75 @@
+name: master-builder
+on:  
+    push: 
+        branches:
+            - master
+
+jobs:
+  
+  Android:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - uses: actions/checkout@v2
+      
+    - name: Update packages
+      run: sudo apt-get update
+    - name: Install java
+      run: sudo apt-get install openjdk-8-jdk
+    - name: Install luajit
+      run: sudo apt-get install luajit
+    - name: Install Zip
+      run: sudo apt install zip unzip
+      
+    - name: Download apktool
+      run: |
+        wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
+        wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar
+      
+    - name: Install apktool
+      run: |
+        mv apktool_2.4.1.jar apktool.jar
+        chmod +x apktool
+        chmod +x apktool.jar
+        sudo mv apktool /usr/local/bin/apktool
+        sudo mv apktool.jar /usr/local/bin/apktool.jar
+        
+    - name: Download uber apk signer
+      run: wget https://github.com/patrickfav/uber-apk-signer/releases/download/v1.1.0/uber-apk-signer-1.1.0.jar
+      
+    - name: Decode the löve embed apk
+      run: |
+        apktool d -s -o love_decoded love_embed_11.3_target29.apk
+        cd love_decoded
+        mkdir assets
+        rm AndroidManifest.xml
+        cd ..
+      
+    - name: Generate manifest from config.lua
+      run: |
+        luajit manifest_generator.lua
+        mv gen.xml love_decoded/AndroidManifest.xml
+    
+    - name: Make And Insert game.love
+      run: |
+        cd buildData/source
+        zip -r game.love *
+        cd ..
+        cd ..
+        mv buildData/source/game.love love_decoded/assets
+    - name: Replace app icons
+      run: cp -rf buildData/res love_decoded
+    
+    - name: Generate the unsigned apk
+      run: apktool b -o unsigned.apk love_decoded
+    
+    - name: Make a signed copy
+      run: |
+           java -jar uber-apk-signer-1.1.0.jar -a unsigned.apk
+           mv unsigned-aligned-debugSigned.apk signed.apk
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: signed.apk
+        path: signed.apk
