@@ -126,6 +126,8 @@ function getLocalizedString(engString)
 
                case("combo: ","コンボ ")or
 
+               case("Thanks to","のおかげで")or
+
                "error"
     end
 
