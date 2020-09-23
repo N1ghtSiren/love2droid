@@ -75,60 +75,98 @@ function swapLanguage()
     if(settings.language=="_en")then
         font_big = love.graphics.newFont("libs/comicsans.ttf", font_size_big)
         font_main = love.graphics.newFont("libs/comicsans.ttf", font_size_main)
+        font_small = love.graphics.newFont("libs/comicsans.ttf", font_size_small)
     elseif(settings.language=="_jp")then
         font_big = love.graphics.newFont("libs/umeboshi.ttf", font_size_big)
         font_main = love.graphics.newFont("libs/umeboshi.ttf", font_size_main)
+        font_small = love.graphics.newFont("libs/umeboshi.ttf", font_size_small)
     end
+    updateLocalization()
 end
 
-function getLocalizedString(engString)
+function updateLocalization()
     if(settings.language=="_en")then
-        return engString
-    end
+        ls_Bubbles = "Bubbles"
+        ls_Start_Game = "Start Game"
+        ls_Options = "Options"
+        ls_ThanksTo = "Thanks to"
+        ls_Exit = "Exit"
 
-    if(settings.language=="_jp")then
-        setupCase(engString)
-        return case("Bubbles","バブル")or 
-               case("Start Game","ゲームをスタート")or
-               case("Options","セッティング")or
-               case("Exit","エグジット")or
+        ls_Back = "Back"
 
-               case("Back","バック")or
+        ls_ShortGame = "Short game - 200 taps"
+        ls_MediumGame = "Medium game - 500 taps"
+        ls_LongGame = "Long game - 1000 taps"
 
-               case("Short game - 200 taps","ショートゲーム-200タップ")or
-               case("Medium game - 500 taps","中程度のゲーム-500タップ")or
-               case("Long game - 1000 taps","ロングゲーム-1000タップ")or
+        ls_CircleMaxSize = "Circle Max Size"
+        ls_FieldSize = "Field Size: "
+        ls_MusicVolume = "Music Volume"
+        ls_PopSound = "Pop sound"
+        ls_Language = "Language"
+        ls_ResetToDefault = "Reset to Default"
 
-               case("Circle Max Size","サークル最大サイズ")or
-               case("Field Size: ","フィールドサイズ ")or
-               case("Music Volume","音楽の音量")or
-               case("Pop sound","ポップ音")or
-               case("Language","言語")or
-               case("Reset to Default","デフォルトにリセット")or
+        ls_Yes = "yes"
+        ls_No = "no"
 
-               case("yes","はい")or
-               case("no","番号")or
+        ls_Score = "Score: "
+        ls_Taps = "Taps: "
 
-               case("Score: ","スコア ")or
-               case("Taps: ","タップ ")or
+        ls_Pause = "PAUSE"
+        ls_Best = "Best: "
+        ls_NewRecord = "NEW RECORD!"
+        ls_MaxCombo = "Max Combo: "
+        ls_TapsLeft = "Taps Left: "
+        ls_ToMainMenu = "To Main Menu"
+        ls_Continue = "Continue"
 
-               case("PAUSE","休止")or
-               case("Best: ","ベスト ")or
-               case("NEW RECORD!","新記録!")or
-               case("Max Combo: ","最大コンボ ")or    
-               case("Taps Left: ","左タップ ")or
-               case("To Main Menu","メインメニューへ")or
-               case("Continue","継続する")or
+        ls_GameOver = "GAME OVER"
+        ls_TapLimit = "Tap Limit: "
+        ls_PlayAgain = "Play Again"
 
-               case("GAME OVER","ゲームオーバー")or
-               case("Tap Limit: ","タップ制限 ")or
-               case("Play Again","再びプレー")or
+        ls_Combo = "combo: "
 
-               case("combo: ","コンボ ")or
+        
 
-               case("Thanks to","のおかげで")or
+    elseif(settings.language=="_jp")then
+        ls_Bubbles = "バブル"
+        ls_Start_Game = "ゲームをスタート"
+        ls_Options = "セッティング"
+        ls_ThanksTo = "のおかげで"
+        ls_Exit = "エグジット"
 
-               "error"
+        ls_Back = "バック"
+
+        ls_ShortGame = "ショートゲーム-200タップ"
+        ls_MediumGame = "中程度のゲーム-500タップ"
+        ls_LongGame = "ロングゲーム-1000タップ"
+
+        ls_CircleMaxSize = "サークル最大サイズ"
+        ls_FieldSize = "フィールドサイズ" 
+        ls_MusicVolume = "音楽の音量"
+        ls_PopSound = "ポップ音"
+        ls_Language = "言語"
+        ls_ResetToDefault = "デフォルトにリセット"
+
+        ls_Yes = "はい"
+        ls_No = "番号"
+
+        ls_Score = "スコア: "
+        ls_Taps = "タップ: "
+
+        ls_Pause = "休止"
+        ls_Best = "ベスト: "
+        ls_NewRecord = "新記録!"
+        ls_MaxCombo = "最大コンボ: "
+        ls_TapsLeft = "左タップ: "
+        ls_ToMainMenu = "メインメニューへ"
+        ls_Continue = "継続する"
+
+        ls_GameOver = "ゲームオーバー"
+        ls_TapLimit = "タップ制限: "
+        ls_PlayAgain = "再びプレー"
+
+        ls_Combo = "コンボ: "
+
     end
 
 end

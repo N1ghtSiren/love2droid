@@ -11,13 +11,9 @@ function menu_thanks.create(groupID)
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_small)
 
-        printf("Background music is just a remix of part of Frankum's #418321", width/20, height*0.05, width*0.9)
-        printf("https://freesound.org/people/frankum/sounds/418321/", width/20, height*0.25, width*0.9)
-        printf("Frankum's original has a license which allows commercial-use,", width/20, height*0.45, width*0.9)
-        printf("if they receive attribution; licence:", width/20, height*0.65, width*0.9)
-        printf("https://creativecommons.org/licenses/by/3.0/", width/20, height*0.75, width*0.9)
+        printf("Music is used under CC BY 3.0 licence: \r\nhttps://creativecommons.org/licenses/by/3.0/ \r\n\r\nTimbre - tweaked loopable excerpt \r\nhttps://freesound.org/people/Timbre/sounds/418852/", width/20, height*0.05, width*0.9)
         --
-        printf(getLocalizedString("Back"), width/20, height*0.85, 999)
+        printf(ls_Back, width/20, height*0.85, 999)
         --
     end
 
@@ -29,7 +25,7 @@ function menu_thanks.create(groupID)
         local height = love.graphics.getHeight()
         --vcells
         
-        local textwidth = font_main:getWidth(getLocalizedString("Back"))
+        local textwidth = font_main:getWidth(ls_Back)
         local minx = width/20
         if(touches.isInArea(minx, height*0.85, minx+textwidth, height*0.85+textheight))then
             saveSettings()

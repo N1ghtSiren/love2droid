@@ -21,15 +21,15 @@ function ui.create(groupID)
         rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
         --text
         setColor(1,1,1,1)
-        printf(getLocalizedString("PAUSE"), w*0.1, h*0.05, 999)
-        printf(getLocalizedString("Score: ")..obj.score, w*0.1, h*0.15, 999)
-        printf(getLocalizedString("Best: ")..record, w*0.6, h*0.15, 999)
+        printf(ls_Pause, w*0.1, h*0.05, 999)
+        printf(ls_Score..obj.score, w*0.1, h*0.15, 999)
+        printf(ls_Best..record, w*0.6, h*0.15, 999)
         if(record<obj.score)then
-            printf(getLocalizedString("NEW RECORD!"), w*0.6, h*0.25, 999)
+            printf(ls_NewRecord, w*0.6, h*0.25, 999)
         end
-        printf(getLocalizedString("Max Combo: ")..obj.maxcombo, w*0.1, h*0.25, 999)
-        printf(getLocalizedString("Field Size: ")..settings.cellsX.."x"..settings.cellsY, w*0.1, h*0.35, 999)
-        printf(getLocalizedString("Taps Left: ")..obj.tapsleft, w*0.1, h*0.45, 999)
+        printf(ls_MaxCombo..obj.maxcombo, w*0.1, h*0.25, 999)
+        printf(ls_FieldSize..settings.cellsX.."x"..settings.cellsY, w*0.1, h*0.35, 999)
+        printf(ls_TapsLeft..obj.tapsleft, w*0.1, h*0.45, 999)
         --stones
         setColor(rgba[1])
         printf("x"..(obj.stones[1]or 0), w*0.1, h*0.55, 999)
@@ -41,8 +41,8 @@ function ui.create(groupID)
         printf("x"..(obj.stones[4]or 0), w*0.55, h*0.55, 999)
         --buttons
         setColor(1,1,1,1)
-        printf(getLocalizedString("To Main Menu"),w*0.1,h*0.75,999)
-        printf(getLocalizedString("Continue"),w*0.6,h*0.75,999)
+        printf(ls_ToMainMenu,w*0.1,h*0.75,999)
+        printf(ls_Continue,w*0.6,h*0.75,999)
     end
 
     function obj.ongameover()
@@ -63,15 +63,15 @@ function ui.create(groupID)
         rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
         --text
         setColor(1,1,1,1)
-        printf(getLocalizedString("GAME OVER"), w*0.1, h*0.05, 999)
-        printf(getLocalizedString("Score: ")..obj.score, w*0.1, h*0.15, 999)
-        printf(getLocalizedString("Best: ")..record, w*0.6, h*0.15, 999)
+        printf(ls_GameOver, w*0.1, h*0.05, 999)
+        printf(ls_Score..obj.score, w*0.1, h*0.15, 999)
+        printf(ls_Best..record, w*0.6, h*0.15, 999)
         if(record<obj.score)then
-            printf(getLocalizedString("NEW RECORD!"), w*0.6, h*0.25, 999)
+            printf(ls_NewRecord, w*0.6, h*0.25, 999)
         end
-        printf(getLocalizedString("Max Combo: ")..obj.maxcombo, w*0.1, h*0.25, 999)
-        printf(getLocalizedString("Field Size: ")..settings.cellsX.."x"..settings.cellsY, w*0.1, h*0.35, 999)
-        printf(getLocalizedString("Tap Limit: ")..obj.taps, w*0.1, h*0.45, 999)
+        printf(ls_MaxCombo..obj.maxcombo, w*0.1, h*0.25, 999)
+        printf(ls_FieldSize..settings.cellsX.."x"..settings.cellsY, w*0.1, h*0.35, 999)
+        printf(ls_TapLimit..obj.taps, w*0.1, h*0.45, 999)
         --stones
         setColor(rgba[1])
         printf("x"..obj.stones[1], w*0.1, h*0.55, 999)
@@ -83,8 +83,8 @@ function ui.create(groupID)
         printf("x"..obj.stones[4], w*0.55, h*0.55, 999)
         --buttons
         setColor(1,1,1,1)
-        printf(getLocalizedString("To Main Menu"),w*0.1,h*0.75,999)
-        printf(getLocalizedString("Play Again"),w*0.6,h*0.75,999)
+        printf(ls_ToMainMenu,w*0.1,h*0.75,999)
+        printf(ls_PlayAgain,w*0.6,h*0.75,999)
     end
 
     local a = 0.3
@@ -97,8 +97,8 @@ function ui.create(groupID)
         local printf = love.graphics.printf
 
         love.graphics.setColor(1,1,1,a)
-        printf(getLocalizedString("Score: ")..obj.score, w*0.02, h*0.1, 999)
-        printf(getLocalizedString("Taps: ")..obj.tapsleft, w*0.02, h*0.3, 999)
+        printf(ls_Score..obj.score, w*0.02, h*0.1, 999)
+        printf(ls_Taps..obj.tapsleft, w*0.02, h*0.3, 999)
         
         love.graphics.setFont(font_main)
     end
@@ -129,7 +129,7 @@ function ui.create(groupID)
             local w = love.graphics.getWidth()
 
             local textheight = font_main:getHeight()
-            local textwidth = font_main:getWidth(getLocalizedString("To Main Menu"))
+            local textwidth = font_main:getWidth(ls_ToMainMenu)
             local minx = w*0.1
             local miny = h*0.75
 
@@ -140,7 +140,7 @@ function ui.create(groupID)
                 obj.onend()
             end
 
-            textwidth = font_main:getWidth(getLocalizedString("Play Again"))
+            textwidth = font_main:getWidth(ls_PlayAgain)
             minx = w*0.6
             miny = h*0.75
 
@@ -181,7 +181,7 @@ function ui.create(groupID)
             local w = love.graphics.getWidth()
 
             local textheight = font_main:getHeight()
-            local textwidth = font_main:getWidth(getLocalizedString("To Main Menu"))
+            local textwidth = font_main:getWidth(ls_ToMainMenu)
             local minx = w*0.1
             local miny = h*0.75
 
@@ -195,7 +195,7 @@ function ui.create(groupID)
                 obj.onend()
             end
 
-            textwidth = font_main:getWidth(getLocalizedString("Continue"))
+            textwidth = font_main:getWidth(ls_Continue)
             minx = w*0.6
             miny = h*0.75
 
@@ -309,7 +309,7 @@ function ui.create(groupID)
         if(obj.combo%5==0)then
             local r,g,b,a = unpack(rgba[Grid.cells[basex][basey].color])
             a = 1.6
-            obj.textadd(getLocalizedString("combo: ")..obj.combo,{r,g,b,a},cellsize*basex,cellsize*(basey+0.5))
+            obj.textadd(ls_Combo..obj.combo,{r,g,b,a},cellsize*basex,cellsize*(basey+0.5))
         end
 
         --handle taps

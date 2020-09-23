@@ -10,15 +10,15 @@ function menu_options.create(groupID)
         
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_main)
-        printf(getLocalizedString("Circle Max Size"), width/20, height*0.05, 999)
+        printf(ls_CircleMaxSize, width/20, height*0.05, 999)
         --
-        printf(getLocalizedString("Field Size: "), width/20, height*0.2, 999)
+        printf(ls_FieldSize, width/20, height*0.2, 999)
         --
-        printf(getLocalizedString("Music Volume"), width/20, height*0.35, 999)
+        printf(ls_MusicVolume, width/20, height*0.35, 999)
         --
-        printf(getLocalizedString("Pop sound"), width/20, height*0.5, 999)
+        printf(ls_PopSound, width/20, height*0.5, 999)
         --
-        printf(getLocalizedString("Language"), width/20, height*0.65, 999)
+        printf(ls_Language, width/20, height*0.65, 999)
         printf("<", width*0.7, height*0.65, 999)
         if(settings.language=="_en")then
             printf("English", width*0.75, height*0.65, 999)
@@ -27,9 +27,9 @@ function menu_options.create(groupID)
         end
         printf(">", width*0.9, height*0.65, 999)
         --
-        printf(getLocalizedString("Back"), width/20, height*0.85, 999)
+        printf(ls_Back, width/20, height*0.85, 999)
         --
-        printf(getLocalizedString("Reset to Default"), width*0.6, height*0.85, 999)
+        printf(ls_ResetToDefault, width*0.6, height*0.85, 999)
         --
         printf("<", width*0.7, height*0.05, 999)
         printf(settings.cellsize, width*0.8, height*0.05, 999)
@@ -43,9 +43,9 @@ function menu_options.create(groupID)
         --
         local str = ""
         if(settings.playpops==1)then
-            str = getLocalizedString("yes")
+            str = ls_Yes
         else
-            str = getLocalizedString("no")
+            str = ls_No
         end
         printf("<", width*0.7, height*0.5, 999)
         printf(str, width*0.77, height*0.5, 999)
@@ -145,7 +145,7 @@ function menu_options.create(groupID)
             touches.pause(0.5)
         end
         --
-        textwidth = font_main:getWidth(getLocalizedString("Back"))
+        textwidth = font_main:getWidth(ls_Back)
         minx = width/20
         if(touches.isInArea(minx, height*0.85, minx+textwidth, height*0.85+textheight))then
             saveSettings()
@@ -153,7 +153,7 @@ function menu_options.create(groupID)
             MainMenu.perform(true)
         end
         --
-        textwidth = font_main:getWidth(getLocalizedString("Reset to Default"))
+        textwidth = font_main:getWidth(ls_ResetToDefault)
         minx = width*0.6
         if(touches.isInArea(minx, height*0.85, minx+textwidth, height*0.85+textheight))then
             defaultSettings()
@@ -184,7 +184,7 @@ function checkSettings()
     local h = love.graphics.getPixelHeight()
     local w = love.graphics.getPixelWidth()
 
-    settings.cellsize = settings.cellsize or 70
+    settings.cellsize = settings.cellsize or 110
     settings.musicvolume = settings.musicvolume or 0.5
     settings.playpops = settings.playpops or 1
 
@@ -202,7 +202,7 @@ function defaultSettings()
     --calculations
     local h = love.graphics.getPixelHeight()
     local w = love.graphics.getPixelWidth()
-    settings.cellsize = 70
+    settings.cellsize = 110
     --
     settings.cellsY = divisor(h,settings.cellsize)
     settings.cellsX = divisor(w,settings.cellsize)-1

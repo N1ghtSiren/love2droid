@@ -11,28 +11,28 @@ function menu_main.create(groupID)
         --title
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_big)
-        local locstr = getLocalizedString("Bubbles")
+        local locstr = ls_Bubbles
         local textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/1.4, height*0.05, 999)
 
         --
         love.graphics.setFont(font_main)
-        locstr = getLocalizedString("Start Game")
+        locstr = ls_Start_Game
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.3, 999)
 
         --
-        locstr = getLocalizedString("Options")
+        locstr = ls_Options
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.45, 999)
 
         --
-        locstr = getLocalizedString("Thanks to")
+        locstr = ls_ThanksTo
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.6, 999)
 
         --
-        locstr = getLocalizedString("Exit")
+        locstr = ls_Exit
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.75, 999)
     end
@@ -44,7 +44,7 @@ function menu_main.create(groupID)
         local width = love.graphics.getWidth()
         local height = love.graphics.getHeight()
         
-        local locstr = getLocalizedString("Start Game")
+        local locstr = ls_Start_Game
         local textwidth = font_main:getWidth(locstr)
         local minx = width/2-textwidth/2
         --
@@ -55,7 +55,7 @@ function menu_main.create(groupID)
             touches.pause(1)
         end
 
-        locstr = getLocalizedString("Options")
+        locstr = ls_Options
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
@@ -67,7 +67,7 @@ function menu_main.create(groupID)
         end
 
         --
-        locstr = getLocalizedString("Thanks to")
+        locstr = ls_ThanksTo
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
@@ -79,7 +79,7 @@ function menu_main.create(groupID)
         end
 
         --
-        locstr = getLocalizedString("Exit")
+        locstr = ls_Exit
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
