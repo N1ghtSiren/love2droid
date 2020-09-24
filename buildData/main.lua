@@ -70,7 +70,7 @@ Grid = grid.create(1)
 Grid.perform(false)
 updateLocalization()
 
-UI = ui.create(4)
+
 
 if(settings.firstLaunch==1)then
     LangMenu = menu_lang.create(1)
@@ -78,4 +78,5 @@ if(settings.firstLaunch==1)then
 else
     swapLanguage()
     MainMenu.perform(true)
+    UI = ui.create(4)
 end

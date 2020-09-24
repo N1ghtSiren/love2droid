@@ -41,6 +41,7 @@ function menu_lang.create(groupID)
             settings.firstLaunch = 0
             checkSettings()
             saveSettings()
+            UI = ui.create(4)
         end
         --
         textwidth = font_main:getWidth("日本語")
@@ -55,6 +56,7 @@ function menu_lang.create(groupID)
             settings.firstLaunch = 0
             checkSettings()
             saveSettings()
+            UI = ui.create(4)
         end
         --
         touches.clear()
