@@ -1,9 +1,8 @@
 name: beta-builder
 on:  
     push: 
-        branches:
-            - beta
-            - testing
+        branches-ignore:
+            - master
 
 jobs:
   
