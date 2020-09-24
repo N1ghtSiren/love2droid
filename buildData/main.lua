@@ -44,7 +44,6 @@ if(loadSettings()==false)then
     defaultSettings()
     settings.language = "_en"
     saveSettings()
-    updateLocalization()
 end
 checkSettings()
 
@@ -68,13 +67,11 @@ StartMenu = menu_startgame.create(1)
 ThanksTo = menu_thanks.create(1)
 Grid = grid.create(1)
 Grid.perform(false)
-updateLocalization()
-
+UI = ui.create(4)
 if(settings.firstLaunch==1)then
     LangMenu = menu_lang.create(1)
     LangMenu.perform(true)
 else
     swapLanguage()
     MainMenu.perform(true)
-    UI = ui.create(4)
 end
