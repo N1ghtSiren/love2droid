@@ -70,8 +70,6 @@ Grid = grid.create(1)
 Grid.perform(false)
 updateLocalization()
 
-
-
 if(settings.firstLaunch==1)then
     LangMenu = menu_lang.create(1)
     LangMenu.perform(true)

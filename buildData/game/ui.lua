@@ -127,7 +127,7 @@ function ui.create(groupID)
         if(obj.GAMEOVER==true)then
             local h = love.graphics.getHeight()
             local w = love.graphics.getWidth()
-
+            
             local textheight = font_main:getHeight()
             local textwidth = font_main:getWidth(ls_ToMainMenu)
             local minx = w*0.1
@@ -385,6 +385,7 @@ function ui.create(groupID)
         
     end
 
+    updateLocalization()
     obj.perform(true)
     return obj
 end
