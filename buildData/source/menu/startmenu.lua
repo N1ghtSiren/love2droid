@@ -10,16 +10,16 @@ function menu_startgame.create(groupID)
         
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_main)
-        local locstr = ls_ShortGame
+        local locstr = getLocalizedString("Short game - 200 taps")
         printf(locstr, width/20, height*0.1, 999)
         --
-        locstr = ls_MediumGame
+        locstr = getLocalizedString("Medium game - 500 taps")
         printf(locstr, width/20, height*0.3, 999)
         --
-        locstr = ls_LongGame
+        locstr = getLocalizedString("Long game - 1000 taps")
         printf(locstr, width/20, height*0.5, 999)
         --
-        locstr = ls_Back
+        locstr = getLocalizedString("Back")
         printf(locstr, width/20, height*0.8, 999)
         --
     end
@@ -30,7 +30,7 @@ function menu_startgame.create(groupID)
         local width = love.graphics.getWidth()
         local height = love.graphics.getHeight()
         --
-        local locstr = ls_ShortGame
+        local locstr = getLocalizedString("Short game - 200 taps")
         local textwidth = font_main:getWidth(locstr)
         local minx = width/20
         if(touches.isInArea(minx, height*0.1, minx+textwidth, height*0.1+textheight))then
@@ -41,7 +41,7 @@ function menu_startgame.create(groupID)
         end
 
         --
-        locstr = ls_MediumGame
+        locstr = getLocalizedString("Medium game - 500 taps")
         textwidth = font_main:getWidth(locstr)
         minx = width/20
         if(touches.isInArea(minx, height*0.3, minx+textwidth, height*0.3+textheight))then
@@ -52,7 +52,7 @@ function menu_startgame.create(groupID)
         end
 
         --
-        locstr = ls_LongGame
+        locstr = getLocalizedString("Long game - 1000 taps")
         textwidth = font_main:getWidth(locstr)
         minx = width/20
         if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.5+textheight))then
@@ -63,7 +63,7 @@ function menu_startgame.create(groupID)
         end
         
         --
-        locstr = ls_Back
+        locstr = getLocalizedString("Back")
         textwidth = font_main:getWidth(locstr)
         minx = width/20
         if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.8+textheight))then

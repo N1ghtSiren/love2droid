@@ -13,7 +13,7 @@ function menu_thanks.create(groupID)
 
         printf("Music is used under CC BY 3.0 licence: \r\nhttps://creativecommons.org/licenses/by/3.0/ \r\n\r\nTimbre - tweaked loopable excerpt \r\nhttps://freesound.org/people/Timbre/sounds/418852/", width/20, height*0.05, width*0.9)
         --
-        printf(ls_Back, width/20, height*0.85, 999)
+        printf(getLocalizedString("Back"), width/20, height*0.85, 999)
         --
     end
 
@@ -25,7 +25,7 @@ function menu_thanks.create(groupID)
         local height = love.graphics.getHeight()
         --vcells
         
-        local textwidth = font_main:getWidth(ls_Back)
+        local textwidth = font_main:getWidth(getLocalizedString("Back"))
         local minx = width/20
         if(touches.isInArea(minx, height*0.85, minx+textwidth, height*0.85+textheight))then
             saveSettings()

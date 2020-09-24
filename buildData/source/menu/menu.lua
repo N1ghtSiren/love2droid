@@ -11,33 +11,30 @@ function menu_main.create(groupID)
         --title
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_big)
-        local locstr = ls_Bubbles
+        local locstr = getLocalizedString("Bubbles")
         local textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/1.4, height*0.05, 999)
 
         --
         love.graphics.setFont(font_main)
-        locstr = ls_Start_Game
+        locstr = getLocalizedString("Start Game")
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.3, 999)
 
         --
-        locstr = ls_Options
+        locstr = getLocalizedString("Options")
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.45, 999)
 
         --
-        locstr = ls_ThanksTo
+        locstr = getLocalizedString("Thanks to")
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.6, 999)
-=======
-        printf(locstr, width/2-textwidth/2, height*0.5, 999)
->>>>>>> parent of a618bb8... 1.1.1 [test]
 
         --
-        locstr = ls_Exit
+        locstr = getLocalizedString("Exit")
         textwidth = font_main:getWidth(locstr)
-        printf(locstr, width/2-textwidth/2, height*0.7, 999)
+        printf(locstr, width/2-textwidth/2, height*0.75, 999)
     end
 
     function obj.onupdate(dt)
@@ -47,7 +44,7 @@ function menu_main.create(groupID)
         local width = love.graphics.getWidth()
         local height = love.graphics.getHeight()
         
-        local locstr = ls_Start_Game
+        local locstr = getLocalizedString("Start Game")
         local textwidth = font_main:getWidth(locstr)
         local minx = width/2-textwidth/2
         --
@@ -58,20 +55,19 @@ function menu_main.create(groupID)
             touches.pause(1)
         end
 
-        locstr = ls_Options
+        locstr = getLocalizedString("Options")
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
-        if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.5+textheight))then
+        if(touches.isInArea(minx, height*0.45, minx+textwidth, height*0.45+textheight))then
             OptionsMenu.perform(true)
             obj.perform(false)
 
             touches.pause(0.5)
         end
 
-<<<<<<< HEAD
         --
-        locstr = ls_ThanksTo
+        locstr = getLocalizedString("Thanks to")
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
@@ -83,14 +79,11 @@ function menu_main.create(groupID)
         end
 
         --
-        locstr = ls_Exit
-=======
         locstr = getLocalizedString("Exit")
->>>>>>> parent of a618bb8... 1.1.1 [test]
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
-        if(touches.isInArea(minx, height*0.7, minx+textwidth, height*0.7+textheight))then
+        if(touches.isInArea(minx, height*0.75, minx+textwidth, height*0.75+textheight))then
             love.event.quit()
         end
 
