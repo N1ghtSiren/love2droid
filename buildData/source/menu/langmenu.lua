@@ -165,8 +165,12 @@ function updateLocalization()
         ls_TapLimit = "タップ制限: "
         ls_PlayAgain = "再びプレー"
 
+<<<<<<< HEAD
         ls_Combo = "コンボ: "
 
+=======
+               "error"
+>>>>>>> parent of a618bb8... 1.1.1 [test]
     end
 
 end

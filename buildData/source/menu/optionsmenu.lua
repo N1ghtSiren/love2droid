@@ -58,16 +58,13 @@ function menu_options.create(groupID)
 
         local width = love.graphics.getWidth()
         local height = love.graphics.getHeight()
-
-        local pw = love.graphics.getPixelWidth()
-        local ph = love.graphics.getPixelHeight()
         --vcells
         local textwidth = font_main:getWidth("<")*2
         local minx = width*0.7
         if(touches.isInArea(minx-textwidth/2, height*0.05, minx+textwidth, height*0.05+textheight))then
-            settings.cellsize = mathfix(settings.cellsize - 5, 5, 130)
-            settings.cellsX = mathfix(divisor(pw,settings.cellsize),1,50)-1
-            settings.cellsY = mathfix(divisor(ph,settings.cellsize),1,30)
+            settings.cellsize = mathfix(settings.cellsize - 5, 5, 70)
+            settings.cellsX = mathfix(divisor(width,settings.cellsize),1,50)-1
+            settings.cellsY = mathfix(divisor(height,settings.cellsize),1,30)
 
             touches.pause(0.5)
         end
@@ -75,9 +72,9 @@ function menu_options.create(groupID)
         textwidth = font_main:getWidth(">")*2
         minx = width*0.9
         if(touches.isInArea(minx-textwidth/2, height*0.05, minx+textwidth, height*0.05+textheight))then
-            settings.cellsize = mathfix(settings.cellsize + 5, 5, 130)
-            settings.cellsX = mathfix(divisor(pw,settings.cellsize),1,50)-1
-            settings.cellsY = mathfix(divisor(ph,settings.cellsize),1,30)
+            settings.cellsize = mathfix(settings.cellsize + 5, 5, 70)
+            settings.cellsX = mathfix(divisor(width,settings.cellsize),1,50)-1
+            settings.cellsY = mathfix(divisor(height,settings.cellsize),1,30)
 
             touches.pause(0.5)
         end
@@ -181,8 +178,8 @@ function menu_options.create(groupID)
 end
 
 function checkSettings()
-    local h = love.graphics.getPixelHeight()
-    local w = love.graphics.getPixelWidth()
+    local h = love.graphics.getHeight()
+    local w = love.graphics.getWidth()
 
     settings.cellsize = settings.cellsize or 110
     settings.musicvolume = settings.musicvolume or 0.5
@@ -200,9 +197,15 @@ function defaultSettings()
     settings.musicvolume = 0.5
     settings.playpops = 1
     --calculations
+<<<<<<< HEAD
     local h = love.graphics.getPixelHeight()
     local w = love.graphics.getPixelWidth()
     settings.cellsize = 110
+=======
+    local h = love.graphics.getHeight()
+    local w = love.graphics.getWidth()
+    settings.cellsize = 70
+>>>>>>> parent of a618bb8... 1.1.1 [test]
     --
     settings.cellsY = divisor(h,settings.cellsize)
     settings.cellsX = divisor(w,settings.cellsize)-1

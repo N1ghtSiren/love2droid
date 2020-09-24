@@ -129,7 +129,12 @@ function ui.create(groupID)
             local w = love.graphics.getWidth()
 
             local textheight = font_main:getHeight()
+<<<<<<< HEAD
             local textwidth = font_main:getWidth(ls_ToMainMenu)
+=======
+            print("lang: ",settings.language)
+            local textwidth = font_main:getWidth(getLocalizedString("To Main Menu"))
+>>>>>>> parent of a618bb8... 1.1.1 [test]
             local minx = w*0.1
             local miny = h*0.75
 

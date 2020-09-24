@@ -1,10 +1,6 @@
 require("libs/addon")
 require("system")
 require("examples/object")
-
-font_size_small = math.floor((love.graphics.getHeight()/20)+1)
-font_small = love.graphics.newFont("libs/comicsans.ttf", font_size_small)
-
 font_size_big = math.floor((love.graphics.getHeight()/10)+1)
 font_big = love.graphics.newFont("libs/umeboshi.ttf", font_size_big)
 
@@ -30,7 +26,6 @@ require("menu/bg")
 require("menu/langmenu")
 require("menu/menu")
 require("menu/optionsmenu")
-require("menu/thankstomenu")
 require("menu/startmenu")
 require("menu/records")
 
@@ -64,7 +59,6 @@ BGM:setVolume(settings.musicvolume)
 MainMenu = menu_main.create(1)
 OptionsMenu = menu_options.create(1)
 StartMenu = menu_startgame.create(1)
-ThanksTo = menu_thanks.create(1)
 Grid = grid.create(1)
 Grid.perform(false)
 UI = ui.create(4)

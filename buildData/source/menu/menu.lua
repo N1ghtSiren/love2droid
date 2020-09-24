@@ -30,11 +30,14 @@ function menu_main.create(groupID)
         locstr = ls_ThanksTo
         textwidth = font_main:getWidth(locstr)
         printf(locstr, width/2-textwidth/2, height*0.6, 999)
+=======
+        printf(locstr, width/2-textwidth/2, height*0.5, 999)
+>>>>>>> parent of a618bb8... 1.1.1 [test]
 
         --
         locstr = ls_Exit
         textwidth = font_main:getWidth(locstr)
-        printf(locstr, width/2-textwidth/2, height*0.75, 999)
+        printf(locstr, width/2-textwidth/2, height*0.7, 999)
     end
 
     function obj.onupdate(dt)
@@ -59,13 +62,14 @@ function menu_main.create(groupID)
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
-        if(touches.isInArea(minx, height*0.45, minx+textwidth, height*0.45+textheight))then
+        if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.5+textheight))then
             OptionsMenu.perform(true)
             obj.perform(false)
 
             touches.pause(0.5)
         end
 
+<<<<<<< HEAD
         --
         locstr = ls_ThanksTo
         textwidth = font_main:getWidth(locstr)
@@ -80,10 +84,13 @@ function menu_main.create(groupID)
 
         --
         locstr = ls_Exit
+=======
+        locstr = getLocalizedString("Exit")
+>>>>>>> parent of a618bb8... 1.1.1 [test]
         textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
-        if(touches.isInArea(minx, height*0.75, minx+textwidth, height*0.75+textheight))then
+        if(touches.isInArea(minx, height*0.7, minx+textwidth, height*0.7+textheight))then
             love.event.quit()
         end
 
