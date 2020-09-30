@@ -64,7 +64,7 @@ function love.draw()
 
     setColor(0,1,0,1)
     for k,v in pairs(touches) do
-        printf(i1.." x: "..v[1]..", y: "..v[2],10,20*i,999)
+        printf(i1.." x: "..v[1]..", y: "..v[2],10,20*i1,999)
         circle("fill",v[1], v[2], 30)
         table.remove(touches,k)
         i1 = i1 + 1
@@ -72,7 +72,7 @@ function love.draw()
 
     setColor(1,0,0,1)
     for k,v in pairs(touches2) do
-        printf(i2.." x: "..v[1]..", y: "..v[2],width()/2+10,20*i,999)
+        printf(i2.." x: "..v[1]..", y: "..v[2],width()/2+10,20*i2,999)
         circle("fill",v[1], v[2], 20)
         i2 = i2 + 1
     end
