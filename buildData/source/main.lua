@@ -78,14 +78,13 @@ function love.draw()
     setColor(1,0,0,1)
     for k,v in pairs(touches2) do
         circle("fill",v[1], v[2], 20)
-        table.remove(touches2,k)
     end
 end
 
 function love.touchpressed( id, x, y, dx, dy, pressure )
-    table.insert(touches2,{x,y})
+    touches2[id] = {x,y}
 end
 
 function love.touchreleased( id, x, y, dx, dy, pressure )
-    table.remove(touches2,id)
+    touches2[id] = nil
 end
