@@ -85,3 +85,7 @@ end
 function love.touchreleased( id, x, y, dx, dy, pressure )
     touches2[id] = nil
 end
+
+function love.touchmoved( id, x, y, dx, dy, pressure )
+    touches2[id] = {touches2[id][1]+dx,touches2[id][2]+dy}
+end
