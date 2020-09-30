@@ -41,7 +41,7 @@
 --end
 --addon.drawAdd(f,1)
 
-local w = love.graphics.getWidth()
+local width = love.graphics.getWidth
 local printf = love.graphics.printf
 local setColor = love.graphics.setColor
 local circle = love.graphics.circle
@@ -59,25 +59,22 @@ end
 
 function love.draw()
     --green - with love.update
-    setColor(0,1,0,1)
-    for i = 1, #touches do
-        printf(i.." x: "..touches[i][1]..", y: "..touches[i][2],10,20*i,999)
-    end
-
-    setColor(1,0,0,1)
-    for i = 1, #touches2 do
-        printf(i.." x: "..touches2[i][1]..", y: "..touches2[i][2],w/2+10,20*i,999)
-    end
+    local i1 = 1
+    local i2 = 1
 
     setColor(0,1,0,1)
     for k,v in pairs(touches) do
+        printf(i1.." x: "..v[1]..", y: "..v[2],10,20*i,999)
         circle("fill",v[1], v[2], 30)
         table.remove(touches,k)
+        i1 = i1 + 1
     end
 
     setColor(1,0,0,1)
     for k,v in pairs(touches2) do
+        printf(i2.." x: "..v[1]..", y: "..v[2],width()/2+10,20*i,999)
         circle("fill",v[1], v[2], 20)
+        i2 = i2 + 1
     end
 end
 
