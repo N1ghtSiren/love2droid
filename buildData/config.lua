@@ -1,7 +1,7 @@
 gameName = "Bubbles"
 packageName = "com.tokyoscale.bubbles" --See https://www.aftvnews.com/how-to-determine-the-package-name-of-an-android-app/
-versionCode = "12"
-versionSemantic = "1.1.0"
+versionCode = "13"
+versionSemantic = "1.2.0"
 usesMicrophone = false
 
 --[[

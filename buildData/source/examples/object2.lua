@@ -1,11 +1,16 @@
 object2 = {}
 
-function object2.create(groupID)
-    local obj = object.create(groupID)
+function object2.create()
+    local obj = object.create()
     
-    function obj.ondraw()
+    local keys = {}
+    --draw
+    local function func1(dt)
 
     end
+
+    keys[1] = obj:registerDraw(f)
+
 
     function obj.onupdate(dt)
         
@@ -18,6 +23,6 @@ function object2.create(groupID)
     function obj.ondestroy()
 
     end
-    
+
     return obj
 end

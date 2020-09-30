@@ -1,77 +1,42 @@
-require("libs/addon")
-require("system")
-require("examples/object")
+--globals
+w = love.graphics.getWidth()
+h = love.graphics.getHeight()
+circle = love.graphics.circle
 
 font_size_small = math.floor((love.graphics.getHeight()/20)+1)
-font_small = love.graphics.newFont("libs/comicsans.ttf", font_size_small)
+font_small = love.graphics.newFont("fonts/comicsans.ttf", font_size_small)
 
 font_size_big = math.floor((love.graphics.getHeight()/10)+1)
-font_big = love.graphics.newFont("libs/umeboshi.ttf", font_size_big)
+font_big = love.graphics.newFont("fonts/umeboshi.ttf", font_size_big)
 
 font_size_main = math.floor((love.graphics.getHeight()/15)+1)
-font_main = love.graphics.newFont("libs/umeboshi.ttf", font_size_main)
-love.graphics.setFont(font_main)
---
-Timer = require("libs/hump")
---
-addon.drawgroup.create(1)
-addon.updategroup.create(1)
---
-addon.drawgroup.create(2)
-addon.updategroup.create(2)
---
-addon.drawgroup.create(3)
-addon.updategroup.create(3)
---
-addon.drawgroup.create(4)
-addon.updategroup.create(4)
---
-require("menu/bg")
-require("menu/langmenu")
-require("menu/menu")
-require("menu/optionsmenu")
-require("menu/thankstomenu")
-require("menu/startmenu")
-require("menu/records")
+font_main = love.graphics.newFont("fonts/umeboshi.ttf", font_size_main)
 
-require("game/grid")
-require("game/stone")
-require("game/algorithms")
-require("game/bonus")
-require("game/ui")
+rgba = {}
+rgba[1] = {1, 1, 1, 0.7} 
+rgba[2] = {1, 0.28, 0.10, 0.7}
+rgba[3] = {0, 0.6, 0, 0.7}
+rgba[4] = {0, 0.36, 90, 0.7}
 
-if(loadSettings()==false)then
-    defaultSettings()
-    settings.language = "_en"
-    saveSettings()
+brgba = {}
+brgba[1] = {0, 0, 0, 1}
+brgba[2] = {0, 0, 0, 1}
+brgba[3] = {0, 0, 0, 1}
+brgba[4] = {0, 0, 0, 1}
+--endglobals
+
+
+require("libs/touches")
+require("libs/addon")
+require("libs/TRASH")
+
+local function f()
+    local t = touches.get()
+
+    for k,_ in pairs(t) do
+        circle("fill",t[k][1],t[k][2],30)
+    end
+
+    touches.clear()
 end
-checkSettings()
-
-if(loadRecords()==false)then
-    defaultRecords()
-    saveRecords()
-end
- 
-POP = love.audio.newSource("sounds/pop.flac","static")
-POP:setLooping(false)
-POP:setVolume(0.5)
-
-BGM = love.audio.newSource("sounds/bgm.flac","stream")
-BGM:play()
-BGM:setLooping(true)
-BGM:setVolume(settings.musicvolume)
-
-MainMenu = menu_main.create(1)
-OptionsMenu = menu_options.create(1)
-StartMenu = menu_startgame.create(1)
-ThanksTo = menu_thanks.create(1)
-Grid = grid.create(1)
-Grid.perform(false)
-UI = ui.create(4)
-if(settings.firstLaunch==1)then
-    LangMenu = menu_lang.create(1)
-    LangMenu.perform(true)
-else
-    swapLanguage()
-    MainMenu.perform(true)
-end
+addon.drawAdd(f,1)

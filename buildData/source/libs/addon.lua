@@ -1,206 +1,119 @@
 ---------------------------------------------------------------------
 --main draw stack
 addon = {}
-addon.draw = {}
-addon.drawgroup = {}
+local stack = {}
 
-local drawGroup = {}
+local canvases = {}
 
-function addon.drawgroup.create(groupId)
-    if(drawGroup[groupId]==nil)then
-        drawGroup[groupId]={}
-        drawGroup[groupId].drawflag=true
-        return true
-    end
-    return false, ("draw group"..groupId.." already exist")
+local function prepareCanvas(canvasID)
+    canvases[canvasID] = {}
+    canvases[canvasID].canvas = love.graphics.newCanvas()
+    canvases[canvasID].effect = nil
 end
 
-function addon.drawgroup.delete(groupId)
-    if(drawGroup[groupId]==nil)then return end
-
-    local group = drawGroup[groupId]
-    for k,v in pairs(group) do
-        group[k]=nil
+function addon.drawAdd(func,canvasID)
+    if(stack[canvasID]==nil)then
+        stack[canvasID] = {}
     end
-    drawGroup[groupId]=nil
+
+    if(canvases[canvasID]==nil)then
+        prepareCanvas(canvasID)
+    end
+
+    table.insert(stack[canvasID],func)
+    return #stack[canvasID]
 end
 
-function addon.drawgroup.perform(groupId,flag)
-    if(drawGroup[groupId]~=nil)then
-        return false, ("draw group"..groupId.."does not exist")
-    end
-    drawGroup[groupId].drawflag = flag
-    return true
+function addon.drawRemove(key,canvasID)
+    table.remove(stack[canvasID],key)
 end
 
-function addon.draw.add(func,groupId,position)
-    groupId=groupId or 0
-    if(drawGroup[groupId]==nil)then
-        return false, ("draw group"..groupId.." does not exist")
-    end
+function addon.drawIf(previousFlag,key,func,canvasID,performFlag)
 
-    if(position~=nil)then
-        table.insert(drawGroup[groupId],position,func)
-    else
-        table.insert(drawGroup[groupId],func)
-    end
+    if(performFlag==false)then
+        addon.drawRemove(key,canvasID)
+        return false, key
 
-    return true
-end
-
-function addon.draw.remove(func,groupId)
-    local group = drawGroup[groupId]
-    for k,v in pairs(group) do
-        if(v==func)then group[k]=nil
-            return
-        end
-    end
-end
-
-function addon.draw.If(previousFlag,func,groupId,...)
-    local flag = true
-    local conditions = {...}
-
-    for k,v in pairs(conditions) do
-        if(v==false)then
-            flag=false
-        end
-    end
-    
-    if(flag==false) then
-        addon.draw.remove(func,groupId)
-        return false
-    elseif(flag==true)then
+    elseif(performFlag==true)then
         if(previousFlag==false)then
-            addon.draw.add(func,groupId)
+            key = addon.drawAdd(func,canvasID)
+
         end
-        return true
+        return true, key
+
     end
-    
 end
 
 function love.draw(dt)
-    local drawGroup=drawGroup
+    local stack = stack
+    local g = love.graphics
+    local canvases = canvases
 
-    for gid,t in pairs(drawGroup)do
-        --exception, skip draw
-        if(t.drawflag==false)then
-            goto next
+    for canvasID, lowerStack in pairs(stack)do
+        local c = canvases[canvasID].canvas
+        g.setCanvas(c)
+
+        for k, func in pairs(lowerStack)do
+            
+            func(dt)
+
+        end
+        g.setCanvas()
+
+        if(canvases[canvasID].effect)then
+            canvases[canvasID].effect(function()
+                g.canvasDraw(c)
+            end)
+        else
+            g.canvasDraw(c)
         end
 
-        for key,func in pairs(t)do
-            if(key~=nil and func~=nil and key~="drawflag")then
-                if(func(dt)==true)then
-                    drawGroup[gid][key]=nil
-                end
-            end
-        end
-
-        ::next::
-    end
-
-end
----------------------------------------------------------------------
---main update stack
-addon.update = {}
-addon.updategroup = {}
-
-local updateGroup = {}
-
-function addon.updategroup.create(groupId)
-    if(updateGroup[groupId]==nil)then
-        updateGroup[groupId]={}
-        updateGroup[groupId].updateflag=true
-        return true
-    end
-    return false, ("update group"..groupId.." already exist")
-end
-
-function addon.updategroup.delete(groupId)
-    if(updateGroup[groupId]==nil)then return end
-    
-    local group = updateGroup[groupId]
-    for k,v in pairs(group) do
-        group[k]=nil
-    end
-    updateGroup[groupId]=nil
-end
-
-function addon.updategroup.perform(groupId,flag)
-    if(updateGroup[groupId]~=nil)then
-        return false, ("update group"..groupId.."does not exist")
-    end
-    updateGroup[groupId].updateflag = flag
-    return true
-end
-
-function addon.update.add(func,groupId,position)
-    groupId=groupId or 0
-    if(updateGroup[groupId]==nil)then
-        return false, ("update group"..groupId.." does not exist")
-    end
-
-    if(position~=nil)then
-        table.insert(updateGroup[groupId],position,func)
-    else
-        table.insert(updateGroup[groupId],func)
-    end
-
-    return true
-end
-
-function addon.update.remove(func,groupId)
-    local group = updateGroup[groupId]
-    for k,v in pairs(group) do
-        if(v==func)then group[k]=nil
-            return
-        end
+        g.canvasClear(c)
     end
 end
 
-function addon.update.If(previousFlag,func,groupId,...)
-    local flag = true
-    local conditions = {...}
-
-    for k,v in pairs(conditions) do
-        if(v==false)then
-            flag=false
-        end
+function addon.setEffect(effectfunc,canvasID)
+    if(canvases[canvasID]==nil)then
+        prepareCanvas(canvasID)
     end
+    canvases[canvasID].effect = effectfunc
+end
 
-    if(flag==false) then
-        addon.update.remove(func,groupId)
-        return false
-    elseif(flag==true)then
+function addon.clearEffect(canvasID)
+    canvases[canvasID].effect = nil
+end
+
+--update stack
+local upd = {}
+
+function addon.updateAdd(func)
+    table.insert(upd,func)
+    --return key
+    return #upd
+end
+
+function addon.updateRemove(key)
+    table.remove(upd,key)
+end
+
+function addon.updateIf(previousFlag,key,func,performFlag)
+
+    if(performFlag==false)then
+        addon.remove(key)
+        return false, key
+
+    elseif(performFlag==true)then
         if(previousFlag==false)then
-            addon.update.add(func,groupId)
+            key = addon.add(func)
+
         end
-        return true
+        return true, key
+
     end
 end
 
 function love.update(dt)
-    local updateGroup=updateGroup
-    local flag
-
-    for gid,t in pairs(updateGroup)do
-        --exception, skip update
-        if(t.updateflag==false)then
-            goto next
-        end
-
-        for key,func in pairs(t)do
-            if(key~=nil and func~=nil and key~="updateflag")then
-                if(func(dt)==true)then
-                    updateGroup[gid][key]=nil
-                end
-            end
-        end
-
-        ::next::
+    for k,func in pairs(upd) do
+        func(dt)
     end
 end
----------------------------------------------------------------------
---system groups
-addon.drawgroup.create(0)
-addon.updategroup.create(0)

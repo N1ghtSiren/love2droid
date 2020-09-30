@@ -1,65 +1,96 @@
 object = {}
 local objlist = {}
 
-function object.create(groupID)
+function object.create()
     local obj = {}
     table.insert(objlist,obj)
 	obj.key = #objlist
-    obj.drawflag = false
-    obj.updateflag = false
-    
-    local function ondraw(dt)
-        if(not obj.performflag)then return end
-        if(obj.ondraw)then obj.ondraw(dt) end
-        
-    end
+    obj.performflag = true
 
-    local function onupdate(dt)
-        if(not obj.performflag)then return end
-        if(obj.onupdate)then obj.onupdate(dt) end
-        
-    end
+    obj.draw = {}
+
+    obj.update = {}
 
     local function updater(dt)
-        local drawif = addon.draw.If
-        local updateif = addon.update.If
-
-        obj.drawflag = drawif(obj.drawflag, ondraw, groupID, obj.performflag)
-        obj.updateflag = updateif(obj.updateflag, onupdate, groupID, obj.performflag)
-    end
-
-    local function oncreate()
-        obj.performflag = false
-
-        addon.update.add(onupdate,groupID)
-        addon.draw.add(ondraw,groupID)
-
-
-    end
-	
-	function obj.perform(flag)
-        if(obj.oncreate and obj.iscreated~=true)then
-            obj.iscreated=true
-            obj.oncreate()
+        if(not obj.performflag)then
+            return
         end
 
-        obj.performflag = flag
+        for k,v in pairs(obj.update)do
+            v.prevFlag,v.key = addon.updateIf(v.prevFlag,v.key,v.func,v.performflag)
+        end
 
+        for k,v in pairs(obj.draw)do
+            v.prevFlag,v.key = addon.drawIf(v.prevFlag,v.key,v.func,v.canvasID,v.performflag)
+        end
     end
-	
-	function obj.destroy()
-		addon.update.remove(onupdate,groupID)
-        addon.draw.remove(ondraw,groupID)
-
-        if(obj.ondestroy)then obj.ondestroy() end
-		
-		objlist[obj.key] = nil
-		obj = nil
-
-    end
-
     
-    obj.iscreated = false
-    oncreate()
+    obj.updaterkey = addon.updateAdd(updater)
+
+    obj.registerDraw = object.registerDraw
+    obj.registerUpdate = object.registerUpdate
+
+    obj.changeLayer = object.changeLayer
+    obj.perform = object.perform
+    obj.destroy = object.destroy
+    
     return obj
+end
+
+function object.registerDraw(self,func,canvasID,isPerform)
+    local n = #self.draw+1
+    self.draw[n] = {}
+    self.draw[n].func = func
+    self.draw[n].canvasID = canvasID
+    self.draw[n].performflag = isPerform
+    self.draw[n].key = nil
+    self.draw[n].prevFlag = false
+    return n
+end
+
+function object.registerUpdate(self,func,isPerform)
+    local n = #self.update+1
+    self.update[n] = {}
+    self.update[n].func = func
+    self.update[n].canvasID = canvasID
+    self.update[n].performflag = isPerform
+    self.update[n].key = nil
+    self.update[n].prevFlag = false
+    return n
+end
+
+function object.drawChangeLayer(self,key,canvasID)
+    self.draw[key].canvasID = canvasIDs
+end
+
+function object.drawFuncPerform(self,key,performflag)
+    self.draw[key].performflag = performflag
+end
+
+function object.updateFuncPerform(self,key,performflag)
+    self.update[key].performflag = performflag
+end
+
+function object.perform(self,flag)
+    self.performflag = flag
+end
+
+function object.drawClear(self)
+    for k, v in pairs(self.draw) do
+        addon.drawRemove(v.key,v.canvasID)
+    end
+    self.draw = nil
+end
+
+function object.updateClear(self)
+    for k, v in pairs(self.update) do
+        addon.updateRemove(v.key)
+    end
+    self.update = nil
+end
+
+function object.destroy(self)
+    if(obj.ondestroy)then obj.ondestroy() end
+	objlist[obj.key] = nil
+	obj = nil
 end
